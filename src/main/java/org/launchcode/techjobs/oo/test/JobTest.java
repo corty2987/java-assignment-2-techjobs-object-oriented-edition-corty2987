@@ -8,6 +8,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 import org.launchcode.techjobs.oo.*;
 
+import static java.util.Collections.replaceAll;
 import static org.junit.Assert.*;
 
 /**
@@ -29,23 +30,26 @@ public class JobTest {
         Job test = new Job("Product tester", new Employer("ACME"), new Location("Desert"), new PositionType("Quality control"), new CoreCompetency("Persistence"));
 
         Assert.assertTrue(test.getName() != null);
-        Assert.assertTrue(test.getEmployer() != null);
-        Assert.assertTrue(test.getLocation() != null);
-        Assert.assertTrue(test.getCoreCompetency() != null);
-
+        Assert.assertTrue(test.getEmployer() instanceof Employer);
+        Assert.assertTrue(test.getLocation() instanceof Location);
+        Assert.assertTrue(test.getPositionType() instanceof PositionType);
+        Assert.assertTrue(test.getCoreCompetency() instanceof CoreCompetency);
 
         Assert.assertEquals("Product tester", test.getName());
-        Assert.assertEquals(new Employer("ACME"), test.getEmployer());
-        Assert.assertEquals(new Location("Desert"), test.getLocation());
-        Assert.assertEquals(new PositionType("Quality Control"), test.getPositionType());
-        Assert.assertEquals(new CoreCompetency(), test.getCoreCompetency());
-
-
-
+        Assert.assertEquals(test.getEmployer().getValue(), new Employer("ACME").getValue());
+        Assert.assertEquals(test.getLocation().getValue(), new Location("Desert").getValue());
+        Assert.assertEquals(test.getPositionType().getValue(), new PositionType("Quality control").getValue());
+        Assert.assertEquals(test.getCoreCompetency().getValue(), new CoreCompetency("Persistence").getValue());
     }
 
-
-
+    @Test
+    public void testJobsForEquality() {
+        Job test1 = new Job("Product tester", new Employer("ACME"), new Location("Desert"), new PositionType("Quality control"), new CoreCompetency("Persistence"));
+        Job test2 = new Job("Product tester", new Employer("ACME"), new Location("Desert"), new PositionType("Quality control"), new CoreCompetency("Persistence"));
+        test1.getId();
+        test2.getId();
+        assertFalse(test1.equals(test2));
+    }
 }
 
 
