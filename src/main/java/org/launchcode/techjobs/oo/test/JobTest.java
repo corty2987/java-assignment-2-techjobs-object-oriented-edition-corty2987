@@ -8,7 +8,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 import org.launchcode.techjobs.oo.*;
 
-import static java.util.Collections.replaceAll;
+
 import static org.junit.Assert.*;
 
 /**
@@ -49,6 +49,39 @@ public class JobTest {
         test1.getId();
         test2.getId();
         assertFalse(test1.equals(test2));
+    }
+    @Test
+    public void testToStringStartsAndEndsWithNewLine() {
+        Job test = new Job("Product tester", new Employer("ACME"), new Location("Desert"), new PositionType("Quality control"), new CoreCompetency("Persistence"));
+        char firstChar = test.toString().charAt(0);
+        char lastChar = test.toString().charAt(test.toString().length()-1);
+        Assert.assertEquals(firstChar, '\n');
+        Assert.assertEquals(lastChar, '\n');
+    }
+
+    @Test
+    public void testToStringContainsCorrectLabelsAndData() {
+        Job test = new Job("Product tester", new Employer("ACME"), new Location("Desert"), new PositionType("Quality control"), new CoreCompetency("Persistence"));
+        String testData =
+                "\nID: " + test.getId() + "\n" +
+                "Name: " + test.getName() + "\n" +
+                "Employer: " + test.getEmployer() + "\n" +
+                "Location: " + test.getLocation() + "\n" +
+                "Position Type: " + test.getPositionType()+ "\n" +
+                "Core Competency: " + test.getCoreCompetency() + "\n";
+        Assert.assertEquals(testData, test.toString());
+    }
+    @Test
+    public void testToStringHandlesEmptyField() {
+        Job test = new Job("Product tester", new Employer(""), new Location("Desert"), new PositionType(""), new CoreCompetency("Persistence"));
+
+        Assert.assertEquals("\nID: " + test.getId() + "\n" +
+                "Name: Product tester" + "\n" +
+                "Employer: Data not available" + "\n" +
+                "Location: Desert" + "\n" +
+                "Position Type: Data not available" + "\n" +
+                "Core Competency: Persistence" + "\n", test.toString());
+
     }
 }
 

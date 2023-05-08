@@ -2,6 +2,7 @@ package org.launchcode.techjobs.oo;
 
 import java.util.Objects;
 
+
 public class Job {
 
     private int id;
@@ -26,6 +27,34 @@ public class Job {
         this.positionType = positionType;
         this.coreCompetency = coreCompetency;
     }
+    @Override
+    public String toString() {
+
+        if (this.name == null || this.name.equals("")) {
+            this.name = "Data not available";
+        }
+        if (this.employer.getValue() == null || this.employer.getValue().equals("")) {
+            this.employer.setValue("Data not available");
+        }
+        if (this.location.getValue() == null || this.location.getValue().equals("")) {
+            this.location.setValue("Data not available");
+        }
+        if (this.positionType.getValue() == null || this.positionType.getValue().equals("")) {
+            this.positionType.setValue("Data not available");
+        }
+        if (this.coreCompetency.getValue() == null || this.coreCompetency.getValue().equals("")) {
+            this.coreCompetency.setValue("Data not available");
+        }
+
+        return "\nID: " + this.getId() + "\n" +
+                "Name: " + this.getName() + "\n" +
+                "Employer: " + this.getEmployer() + "\n" +
+                "Location: " + this.getLocation() + "\n" +
+                "Position Type: " + this.getPositionType() + "\n" +
+                "Core Competency: " + this.getCoreCompetency() + "\n";
+
+    }
+
 
     public String getName() {
         return name;
@@ -83,4 +112,8 @@ public class Job {
     public int hashCode() {
         return Objects.hash(id);
     }
+
+
+
+
 }
